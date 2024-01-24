@@ -12,12 +12,15 @@
     "browser-sync": "^2.29.3",
     "eslint": "^8.52.0",
     "eslint-plugin-html": "^7.1.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "socket.io": "^4.7.2"
   },
   "scripts": {
     "start": "browser-sync docs -w",
     "lint": "npm run lint:js && npm run lint:html",
     "lint:js": "eslint docs/*.js",
-    "lint:html": "eslint docs/*.html"
+    "lint:html": "eslint docs/*.html",
+    "test": "jest"
   }
 }
