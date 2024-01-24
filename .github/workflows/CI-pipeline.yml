@@ -31,4 +31,4 @@ jobs:
 
       # Run the linter
       - name: Run eslint
-        run: npx eslint $GITHUB_WORKSPACE/ docs/radar.js
+        run: npx eslint $GITHUB_WORKSPACE/docs/radar.js
