@@ -7,4 +7,5 @@ EXPOSE 80
 COPY . /usr/share/nginx/html
 
 
-
+# Command to run your Node.js application
+CMD ["npm", "start"]
