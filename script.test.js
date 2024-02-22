@@ -2,7 +2,7 @@ import '@testing-library/jest-dom';
 import { screen } from '@testing-library/dom';
 
 // Import or define the updateHeading function
-import { updateHeading } from './script'; // Replace './script' with the actual path to your script.js file
+import { updateHeading } from './script'; 
 
 // Setup a mock HTML structure before each test
 beforeEach(() => {
@@ -18,7 +18,7 @@ test('updateHeading should update the heading content', async () => {
   // Expect the element to be in the document
   expect(element).toBeInTheDocument();
 
-  // Call the updateHeading function (assuming it's defined elsewhere in your codebase)
+  // Call the updateHeading function
   await updateHeading('New heading');
 
   // Get the updated element

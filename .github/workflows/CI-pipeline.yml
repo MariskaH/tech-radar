@@ -38,3 +38,12 @@ jobs:
         run: |
           npm install --save-dev @testing-library/jest-dom @testing-library/dom
           npm test
+
+
+          - name: Build and Push Docker Image
+          uses: mr-smithers-excellent/docker-build-push@v4
+          with:
+            image: mariskah/cin
+            registry: docker.io
+            username: ${{ secrets.DOCKER_USERNAME }}
+            password: ${{ secrets.DOCKER_PASSWORD }}
