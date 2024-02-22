@@ -32,3 +32,9 @@ jobs:
       # Run the linter
       - name: Run eslint
         run: npx eslint $GITHUB_WORKSPACE/docs/radar.js
+
+      # Add unit test step using Jest
+      - name: Unit Test
+        run: |
+          npm install --save-dev @testing-library/jest-dom @testing-library/dom
+          npm test

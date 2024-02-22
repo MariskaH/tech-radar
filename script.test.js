@@ -1,30 +1,30 @@
-import { toBeInTheDocument } from '../../node_modules/@testing-library/jest-dom';
-import { screen } from '../../node_modules/@testing-library/dom';
+import '@testing-library/jest-dom';
+import { screen } from '@testing-library/dom';
 
+// Import or define the updateHeading function
+import { updateHeading } from './script'; // Replace './script' with the actual path to your script.js file
+
+// Setup a mock HTML structure before each test
 beforeEach(() => {
   document.body.innerHTML = '<h1 id="myHeading">Original Heading</h1>';
 });
 
+// Test the updateHeading function
 test('updateHeading should update the heading content', async () => {
+  // Log elements to test selector
+  const element = screen.getByText('Original Heading');
+  console.log(element);
 
-  // Add async keyword to test function
-  async () => {
+  // Expect the element to be in the document
+  expect(element).toBeInTheDocument();
 
-    // Log elements to test selector
-    const element = screen.getByText('Original Heading');
-    console.log(element);
+  // Call the updateHeading function (assuming it's defined elsewhere in your codebase)
+  await updateHeading('New heading');
 
-    expect(element).toBeInTheDocument();
+  // Get the updated element
+  const updatedElement = screen.getByText('New heading');
+  console.log(updatedElement);
 
-    // Make sure updateHeading returns a promise
-    await updateHeading('New heading'); 
-
-    const updatedElement = screen.getByText('New heading');
-    console.log(updatedElement);
-    
-    expect(updatedElement).toBeInTheDocument();
-
-  }
+  // Expect the updated element to be in the document
+  expect(updatedElement).toBeInTheDocument();
 });
-
-
