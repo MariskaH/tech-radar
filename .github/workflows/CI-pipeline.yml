@@ -2,44 +2,55 @@
 
 name: CI
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "master" branch
   push:
     branches: ["master"]
   pull_request:
     branches: ["master"]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      # eslint is the linter used to test javascript (.js) files
-      - name: Install eslint
-        run: npm install --save-dev eslint
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
 
-      # Run the linter
-      - name: Run eslint
-        run: npx eslint $GITHUB_WORKSPACE/docs/radar.js
-
-      # Add unit test step using Jest
-      - name: Unit Test
+      # Install dependencies
+      - name: Install Dependencies
         run: |
-          npm install --save-dev @testing-library/jest-dom @testing-library/dom
-          npm test
+          npm install
 
-      # Build Docker Image
+      # Run unit tests with coverage
+      - name: Run Tests
+        run: npm test
+
+      # Upload test results as artifact
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: |
+            coverage/
+            junit.xml
+
+      # Display test summary in workflow (optional but nice to have)
+      - name: Test Summary
+        run: |
+          echo "Test Results Summary:"
+          cat coverage/lcov-report/index.html || true
+
+      # Your existing ESLint step
+      - name: Run ESLint
+        run: npm run lint
+
+      # Your existing Docker build step
       - name: Build and Push Docker Image
         uses: mr-smithers-excellent/docker-build-push@v4
         with:

@@ -24,13 +24,25 @@
     "lint": "npm run lint:js && npm run lint:html",
     "lint:js": "eslint docs/*.js",
     "lint:html": "eslint docs/*.html",
-    "test": "jest",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch",
     "install-test-dependencies": "npm install --save-dev @testing-library/jest-dom @testing-library/dom"
   },
   "jest": {
     "testEnvironment": "jest-environment-jsdom",
     "transform": {
       "^.+\\.js$": "babel-jest"
+    },
+    "setupFilesAfterEnv": ["@testing-library/jest-dom"],
+    "collectCoverage": true,
+    "coverageReporters": ["text", "lcov", "html"],
+    "coverageThreshold": {
+      "global": {
+        "branches": 60,
+        "functions": 60,
+        "lines": 60,
+        "statements": 60
+      }
     }
   }
 }
