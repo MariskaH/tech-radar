@@ -1,11 +1,11 @@
-# Use an official Node.js runtime as a base image
-FROM nginx
+# Use nginx image
+FROM nginx:alpine
 
-# Expose a port (assuming your app is running on port 3000)
+# Copy only the necessary files to nginx html directory
+COPY docs/ /usr/share/nginx/html/
+
+# Expose port 80 (nginx default port)
 EXPOSE 80
 
-COPY . /usr/share/nginx/html
-
-
-# Command to run your Node.js application
-CMD ["npm", "start"]
+# Start nginx
+CMD ["nginx", "-g", "daemon off;"]

@@ -1,4 +1,4 @@
-# This is a basic workflow to help you get started with Actions
+# This is a basic workflow to help started with Actions
 
 name: CI
 
@@ -40,17 +40,17 @@ jobs:
             coverage/
             junit.xml
 
-      # Display test summary in workflow (optional but nice to have)
+      # Displays test summary in workflow
       - name: Test Summary
         run: |
           echo "Test Results Summary:"
           cat coverage/lcov-report/index.html || true
 
-      # Your existing ESLint step
+      # ESLint step
       - name: Run ESLint
         run: npm run lint
 
-      # Your existing Docker build step
+      # Docker build
       - name: Build and Push Docker Image
         uses: mr-smithers-excellent/docker-build-push@v4
         with:
