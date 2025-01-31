@@ -1,9 +1,9 @@
 import '@testing-library/jest-dom';
 import { screen } from '@testing-library/dom';
 
-describe('My Tech Radar Website Tests', () => {
+describe('Tech Radar Tests', () => {
     beforeEach(() => {
-        // Setting up the HTML we need for testing
+        // Set up our test HTML with the actual radar structure
         document.body.innerHTML = `
             <div id="radar"></div>
             <div id="quadrantButtons">
@@ -15,50 +15,52 @@ describe('My Tech Radar Website Tests', () => {
         `;
     });
 
-    // Test 1: Check if radar div exists
-    test('check if my radar div is on the page', () => {
-        const radarDiv = document.getElementById('radar');
-        expect(radarDiv).toBeInTheDocument();
+    // Test 1: Check if radar container exists
+    test('radar container exists on page', () => {
+        const radarContainer = document.getElementById('radar');
+        expect(radarContainer).toBeInTheDocument();
     });
 
-    // Test 2: Check all category buttons
-    test('check if all my tech categories are shown', () => {
-        const techCategories = ['TECHNIQUES', 'TOOLS', 'PLATFORMS', 'LANGUAGES'];
-        techCategories.forEach(category => {
-            const button = screen.getByText(category);
+    // Test 2: Check if all quadrant buttons are present
+    test('all tech quadrants are visible', () => {
+        const quadrants = ['TECHNIQUES', 'TOOLS', 'PLATFORMS', 'LANGUAGES'];
+        quadrants.forEach(quadrant => {
+            const button = screen.getByText(quadrant);
             expect(button).toBeInTheDocument();
         });
     });
 
-    // Test 3: Check data format
-    test('check if my tech data has all required info', () => {
-        const testTech = {
-            name: "React",  // Using a real tech example
-            quadrant: 0,    // Frontend quadrant
-            ring: 2,        // Assessment ring
-            moved: 0        // Hasn't moved
+    // Test 3: Check radar data format
+    test('radar entry has correct format', () => {
+        const sampleEntry = {
+            name: "Docker",
+            quadrant: 2,        // PLATFORMS quadrant
+            ring: 0,            // ADOPT ring
+            moved: 0            // Hasn't moved
         };
         
-        // Check if all info is there
-        expect(testTech).toHaveProperty('name');
-        expect(testTech).toHaveProperty('quadrant');
-        expect(testTech).toHaveProperty('ring');
-        expect(testTech).toHaveProperty('moved');
+        expect(sampleEntry).toHaveProperty('name');
+        expect(sampleEntry).toHaveProperty('quadrant');
+        expect(sampleEntry).toHaveProperty('ring');
+        expect(sampleEntry).toHaveProperty('moved');
     });
 
-    // Test 4: Check categories are correct
-    test('check if tech categories are in right order', () => {
-        const categories = ['TECHNIQUES', 'TOOLS', 'PLATFORMS', 'LANGUAGES'];
-        const firstCategory = 0; // First category index
+    // Test 4: Test quadrant order
+    test('quadrants are in correct order', () => {
+        const quadrants = ['TECHNIQUES', 'TOOLS', 'PLATFORMS', 'LANGUAGES'];
+        const quadrantButtons = document.querySelectorAll('.button');
         
-        expect(categories[firstCategory]).toBe('TECHNIQUES');
+        quadrantButtons.forEach((button, index) => {
+            expect(button.textContent).toBe(quadrants[index]);
+        });
     });
 
-    // Test 5: Check adoption levels
-    test('check if adoption levels are correct', () => {
-        const adoptionLevels = ['ADOPT', 'TRIAL', 'ASSESS', 'HOLD'];
-        const firstLevel = 0; // ADOPT level
-        
-        expect(adoptionLevels[firstLevel]).toBe('ADOPT');
+    // Test 5: Test rings setup
+    test('rings are correctly defined', () => {
+        const rings = ['ADOPT', 'TRIAL', 'ASSESS', 'HOLD'];
+        expect(rings[0]).toBe('ADOPT');
+        expect(rings[1]).toBe('TRIAL');
+        expect(rings[2]).toBe('ASSESS');
+        expect(rings[3]).toBe('HOLD');
     });
 });
