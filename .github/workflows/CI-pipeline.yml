@@ -30,10 +30,10 @@ jobs:
       - name: Run Tests
         run: npm test
 
-      # Upload test results as artifact
+      # Updated version of upload-artifact action
       - name: Upload Test Results
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4 # Changed from v3 to v4
         with:
           name: test-results
           path: |
